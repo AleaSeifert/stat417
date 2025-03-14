@@ -1,0 +1,14 @@
+---
+title: "Project Report"
+format: html
+authors: Alea Seifert, Alie Hall, Jett Palmer, Libby Brill
+---
+
+```{r}
+#| message: false
+#| echo: false
+
+source("clean_mini_times.R")
+```
+
+
