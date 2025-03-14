@@ -9,10 +9,11 @@ mini_times <- read.csv("data/mini_times.csv") |>
          reaction_time = Reaction.Time..ms.,
          squares = Squares,
          day = Day) |>
-  mutate(day = factor(case_when(day == "Tuesday" ~ 1,
+  mutate(puzzle = factor(case_when(day == "Tuesday" ~ 1,
                                 day == "Wednesday" ~ 2,
                                 day == "Thursday" ~ 3,
                                 day == "Friday" ~ 4,
                                 day == "Saturday" ~ 5,
-                                day == "Friday2" ~ 6)))
+                                day == "Friday2" ~ 6)),
+         day = if_else(day == "Friday2", "Friday", day))
 
