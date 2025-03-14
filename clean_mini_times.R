@@ -8,5 +8,11 @@ mini_times <- read.csv("data/mini_times.csv") |>
          gender = Gender,
          reaction_time = Reaction.Time..ms.,
          squares = Squares,
-         day = Day)
+         day = Day) |>
+  mutate(day = factor(case_when(day == "Tuesday" ~ 1,
+                                day == "Wednesday" ~ 2,
+                                day == "Thursday" ~ 3,
+                                day == "Friday" ~ 4,
+                                day == "Saturday" ~ 5,
+                                day == "Friday2" ~ 6)))
 
