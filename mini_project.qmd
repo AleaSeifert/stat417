@@ -1,0 +1,33 @@
+---
+title: "FinalProject"
+format: html
+editor: visual
+---
+
+## Libraries
+
+```{r}
+library(tidyverse)
+```
+
+
+## Read in data
+
+```{r}
+mini <- read_csv("data/mini_times.csv")
+```
+
+
+## 
+
+```{r}
+ggplot(data = mini, 
+       aes(x = `Time (sec)`)) +
+  geom_histogram(bins = 10, fill = "steelblue") +
+  geom_density()+
+  theme_minimal()
+  
+```
+
+
+
