@@ -1,0 +1,41 @@
+---
+title: "regression_model"
+format: html
+editor: source
+---
+
+## Creating Regression Model
+```{r}
+
+library(tidyverse)
+library(survival)
+
+
+```
+
+
+```{r}
+
+model1 <- coxph(Surv(`time`, censor)~as.factor(gender), data = mini_times)
+
+model2 <- coxph(Surv(`time`, censor)~as.factor(day), data = mini_times)
+
+model3 <- coxph(Surv(`time`, censor)~squares, data = mini_times)
+
+model4 <- coxph(Surv(`time`, censor)~reaction_time, data = mini_times)
+
+main_effects_model <- coxph(Surv(`time`, censor)~reaction_time + squares + as.factor(day)+as.factor(gender), data = mini_times)
+
+summary(main_effects_model)
+step(main_effects_model)
+
+summary(model1)
+summary(model2)
+summary(model3)
+summary(model4)
+
+
+
+
+```
+

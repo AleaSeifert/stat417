@@ -1,6 +1,6 @@
 ---
 title: "Project Report"
-format: pdf
+format: html
 authors: Alea Seifert, Alie Hall, Jett Palmer, Libby Brill
 ---
 
@@ -14,6 +14,36 @@ source("clean_mini_times.R")
 ## Introduction
 <!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study
 was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
+
+#### Origin of Data
+
+This data was student-collected by the members of this 417 project. We decided to collect data on the New York Times Mini Crossword completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time is complete or not, number of squares that the Mini has to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to https://humanbenchmark.com/tests/reactiontime).
+
+#### Action Plan
+
+This study will analyze the time-to-event variable T, representing the time (in seconds) from when a subject presses “start” to when the mini is complete. The mini has a built-in timer to track participants time that will be used for this study. The study will be conducted over the course of four days, with each day featuring a different Mini puzzle. Ten students will be tested each day by two different researchers. Participants will be Cal Poly students, and no duplicate individuals will be included in the study.
+
+During each session, students will attempt to solve the Mini. If they successfully complete the puzzle within 300 seconds (five minutes), we will record their total completion time. If the five minutes expires before they win, their time will be recorded as censored (300+ seconds). Additionally, if a student quits before 300 seconds without solving the puzzle, or turns on the autocheck feature, their time will be marked as censored (incomplete time in seconds).
+
+As an additional variable, we will collect each participant’s reaction time using the Human Benchmark reaction time test. This is to see if there is any association between reaction time and Mini abilities. Our final data set will include the Mini completion time, whether the time was censored or not, the number of squares to be filled in, the participant’s self-identified gender, and the participant’s reaction time.
+
+
+#### Variables
+- time (quantitative)
+  - time starts when the puzzle is opened, when the Mini clock begins counting
+  - time is measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)
+  - time is censored at 300 seconds
+- censor (indicator)
+  - 0: censored, 1: complete
+- gender (categorical)
+  - participant will self-identify
+- reaction_time (quantitative)
+  - measured in milliseconds, as given by the Human Benchmark reaction time test
+- squares (quantitative)
+  - the number of squares to be filled in
+  - for example, the number of squares in the following puzzle would be recorded as 22:
+    ![](images/blank_mini.png)
+
 
 ## Main Report
 
