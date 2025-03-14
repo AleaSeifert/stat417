@@ -1,6 +1,6 @@
 ---
 title: "Project Report"
-format: html
+format: pdf
 authors: Alea Seifert, Alie Hall, Jett Palmer, Libby Brill
 ---
 
