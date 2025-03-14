@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Project Report</title>
+<title>STAT 417 Final Project Report</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -45,7 +45,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project Report</h1>
+<h1 class="title">STAT 417 Final Project Report</h1>
+<p class="subtitle lead">New York Times Mini Crossword Completion</p>
 </div>
 
 
@@ -74,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
 <section id="origin-of-data" class="level4">
 <h4 class="anchored" data-anchor-id="origin-of-data">Origin of Data</h4>
-<p>This data was student-collected by the members of this 417 project. We decided to collect data on the New York Times Mini Crossword completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the <a href="https://humanbenchmark.com/tests/reactiontime">Human Benchmark</a>).</p>
+<p>This data was student-collected by the members of this 417 project. We decided to collect data on the <a href="https://www.nytimes.com/crosswords/game/mini">New York Times Mini Crossword</a> completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the <a href="https://humanbenchmark.com/tests/reactiontime">Human Benchmark</a>).</p>
 </section>
 <section id="action-plan" class="level4">
 <h4 class="anchored" data-anchor-id="action-plan">Action Plan</h4>
@@ -106,7 +107,7 @@ was conducted, and any other details you can provide. If you collected your own 
 <li>squares (quantitative)
 <ul>
 <li>the number of squares to be filled in</li>
-<li>for example, the number of squares in the following puzzle would be recorded as 21: <img src="images/blank_mini.png" class="img-fluid"></li>
+<li>for example, the number of squares in the following puzzle would be recorded as 22: <img src="images/blank_mini.png" class="img-fluid"></li>
 </ul></li>
 </ul>
 </section>
@@ -116,6 +117,7 @@ was conducted, and any other details you can provide. If you collected your own 
 <section id="parametric-survival-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="parametric-survival-analysis">Parametric Survival Analysis</h4>
 <!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
+<p>Log-logistic <img src="images/loglogistic_survival.png" class="img-fluid"> <img src="images/loglogistic_hazard.png" class="img-fluid"> <img src="images/loglogistic_survival_gender.png" class="img-fluid"> <img src="images/loglogistic_hazard_gender.png" class="img-fluid"> <img src="images/loglogistic_survival_squares.png" class="img-fluid"> <img src="images/loglogistic_hazard_squares.png" class="img-fluid"></p>
 </section>
 <section id="non-parametric-survival-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="non-parametric-survival-analysis">Non-parametric Survival Analysis</h4>

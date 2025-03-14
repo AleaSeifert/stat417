@@ -1,5 +1,6 @@
 ---
-title: "Project Report"
+title: "STAT 417 Final Project Report"
+subtitle: "New York Times Mini Crossword Completion"
 format: html
 authors: Alea Seifert, Alie Hall, Jett Palmer, Libby Brill
 ---
@@ -18,7 +19,7 @@ was conducted, and any other details you can provide. If you collected your own 
 
 #### Origin of Data
 
-This data was student-collected by the members of this 417 project. We decided to collect data on the New York Times Mini Crossword completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime)).
+This data was student-collected by the members of this 417 project. We decided to collect data on the [New York Times Mini Crossword](https://www.nytimes.com/crosswords/game/mini) completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime)).
 
 #### Action Plan
 
@@ -42,7 +43,7 @@ As an additional variable, we collected each participant’s reaction time using
   - measured in milliseconds, as given by the Human Benchmark reaction time test
 - squares (quantitative)
   - the number of squares to be filled in
-  - for example, the number of squares in the following puzzle would be recorded as 21:
+  - for example, the number of squares in the following puzzle would be recorded as 22:
     ![](images/blank_mini.png)
 
 
@@ -50,6 +51,14 @@ As an additional variable, we collected each participant’s reaction time using
 
 #### Parametric Survival Analysis
 <!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
+
+Log-logistic
+![](images/loglogistic_survival.png)
+![](images/loglogistic_hazard.png)
+![](images/loglogistic_survival_gender.png)
+![](images/loglogistic_hazard_gender.png)
+![](images/loglogistic_survival_squares.png)
+![](images/loglogistic_hazard_squares.png)
 
 #### Non-parametric Survival Analysis
 <!-- Use non-parametric methods to describe and compare survival experiences of the different groups in your data set. Examine and comment on the survival experience of all individuals in your data set, as well as the survival experiences of different groups of individuals. Use graphical displays such as Kaplan-Meier curves, and/or estimated hazard curves, and perform and report results of the log-rank test. In addition, compute various descriptive statistics of interest. Finally, compare some of your findings using the non-parametric approaches to your findings using the parametric approaches. -->
