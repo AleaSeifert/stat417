@@ -37,10 +37,32 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#main-report" id="toc-main-report" class="nav-link" data-scroll-target="#main-report">Main Report</a>
+  <ul class="collapse">
+  <li><a href="#mean-and-median-survival-times" id="toc-mean-and-median-survival-times" class="nav-link" data-scroll-target="#mean-and-median-survival-times">Mean and Median Survival Times</a></li>
+  <li><a href="#parametric-survival-analysis" id="toc-parametric-survival-analysis" class="nav-link" data-scroll-target="#parametric-survival-analysis">Parametric Survival Analysis</a></li>
+  <li><a href="#non-parametric-survival-analysis" id="toc-non-parametric-survival-analysis" class="nav-link" data-scroll-target="#non-parametric-survival-analysis">Non-Parametric Survival Analysis</a></li>
+  <li><a href="#regression-analysis" id="toc-regression-analysis" class="nav-link" data-scroll-target="#regression-analysis">Regression Analysis</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#parametric-and-non-parametric-analyses" id="toc-parametric-and-non-parametric-analyses" class="nav-link" data-scroll-target="#parametric-and-non-parametric-analyses">Parametric and Non-Parametric Analyses</a></li>
+  <li><a href="#regression-analysis-1" id="toc-regression-analysis-1" class="nav-link" data-scroll-target="#regression-analysis-1">Regression Analysis</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -69,8 +91,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
 <!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study
 was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
 <section id="origin-of-data" class="level4">
@@ -112,29 +134,182 @@ was conducted, and any other details you can provide. If you collected your own 
 </ul>
 </section>
 </section>
-<section id="main-report" class="level2">
-<h2 class="anchored" data-anchor-id="main-report">Main Report</h2>
-<section id="parametric-survival-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="parametric-survival-analysis">Parametric Survival Analysis</h4>
+<section id="main-report" class="level1">
+<h1>Main Report</h1>
+<section id="mean-and-median-survival-times" class="level3">
+<h3 class="anchored" data-anchor-id="mean-and-median-survival-times">Mean and Median Survival Times</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Overall</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Mean (sec)</th>
+<th style="text-align: right;">Median (sec)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">194.84</td>
+<td style="text-align: right;">182</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>By Gender</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Mean (sec)</th>
+<th style="text-align: right;">Median (sec)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Female</td>
+<td style="text-align: right;">192.19</td>
+<td style="text-align: right;">182.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Male</td>
+<td style="text-align: right;">200.31</td>
+<td style="text-align: right;">234.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Non-Binary/Other</td>
+<td style="text-align: right;">193.50</td>
+<td style="text-align: right;">195.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>By Number of Squares</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: right;">Mean (sec)</th>
+<th style="text-align: right;">Median (sec)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">173.29</td>
+<td style="text-align: right;">136.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">226.73</td>
+<td style="text-align: right;">300.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">181.85</td>
+<td style="text-align: right;">172.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">220.00</td>
+<td style="text-align: right;">236.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="parametric-survival-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-survival-analysis">Parametric Survival Analysis</h3>
 <!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
-<p>Log-logistic <img src="images/loglogistic_survival.png" class="img-fluid"> <img src="images/loglogistic_hazard.png" class="img-fluid"> <img src="images/loglogistic_survival_gender.png" class="img-fluid"> <img src="images/loglogistic_hazard_gender.png" class="img-fluid"> <img src="images/loglogistic_survival_squares.png" class="img-fluid"> <img src="images/loglogistic_hazard_squares.png" class="img-fluid"></p>
+<p>Log-logistic</p>
+<section id="survival-plots" class="level4">
+<h4 class="anchored" data-anchor-id="survival-plots">Survival Plots</h4>
+<p><img src="images/loglogistic_survival.png" class="img-fluid"></p>
+<p>The probability that a student has not completed the puzzle after time t, in seconds, decreases rapidly, then begins to plateau around 500 seconds.</p>
+<p><img src="images/loglogistic_survival_gender.png" class="img-fluid"></p>
+<p>When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. It appears that the probability that a male student has not completed the puzzle after time t is greater than the probability for female and non-binary students, for all time.</p>
+<p><img src="images/loglogistic_survival_squares.png" class="img-fluid"></p>
+<p>We also compared survival times based on the number of playable squares and found that the probability subjects do not complete puzzles with 19 squares beyond time t is lowest, as compared to puzzles with more playable squares (21, 22, 40).</p>
 </section>
-<section id="non-parametric-survival-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="non-parametric-survival-analysis">Non-parametric Survival Analysis</h4>
+<section id="hazard-plots" class="level4">
+<h4 class="anchored" data-anchor-id="hazard-plots">Hazard Plots</h4>
+<p><img src="images/loglogistic_hazard.png" class="img-fluid"></p>
+<p>The potential of completing the puzzle increases rapidly until roughly 200 seconds. After 200 seconds, the longer the student doesn’t complete the puzzle, the lower the potential of completing the puzzle.</p>
+<p><img src="images/loglogistic_hazard_gender.png" class="img-fluid"></p>
+<p>Before roughly 200 seconds, the potential of completing the puzzle is lowest for male students and highest for non-binary students. After 200 seconds, the potential to complete the puzzle is roughly the same for female and non-binary students and remains lower for male students, for remaining time t.</p>
+<p><img src="images/loglogistic_hazard_squares.png" class="img-fluid"></p>
+<p>For all time t, the potential to complete the puzzle with 19 playable squares is notably higher than the potential to complete the puzzle for other size puzzles (21, 22, 40 squares).</p>
+</section>
+</section>
+<section id="non-parametric-survival-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="non-parametric-survival-analysis">Non-Parametric Survival Analysis</h3>
 <!-- Use non-parametric methods to describe and compare survival experiences of the different groups in your data set. Examine and comment on the survival experience of all individuals in your data set, as well as the survival experiences of different groups of individuals. Use graphical displays such as Kaplan-Meier curves, and/or estimated hazard curves, and perform and report results of the log-rank test. In addition, compute various descriptive statistics of interest. Finally, compare some of your findings using the non-parametric approaches to your findings using the parametric approaches. -->
+<section id="survival-plots-1" class="level4">
+<h4 class="anchored" data-anchor-id="survival-plots-1">Survival Plots</h4>
+<p><img src="images/nonparametric_survival.png" class="img-fluid"></p>
+<p>We estimate about 35% of students do not complete the puzzle by the end of the study. The estimated probability of not completing the puzzle beyond time t, in seconds, decreases steadily for all time.</p>
+<p><img src="images/nonparametric_survival_gender.png" class="img-fluid"></p>
+<p>The estimated probability of not completing the puzzle by the end of the study appears to be similar across genders for all time. However, it appears that the probability of not completing the puzzle for female students is higher for most times prior to 175 seconds, then drops below male and non-binary students after 175 seconds.</p>
+<p><img src="images/nonparametric_survival_squares.png" class="img-fluid"></p>
+<p>The estimated probability that students do not solve puzzles with 22 playable squares beyond time t is lowest for most times, in seconds, with the exception of 175 to 200 seconds and briefly around 60 seconds. For most times, the estimated probability a student does not solve puzzles with 40 playable squares is highest, especially compared to puzzles with 22 squares.</p>
 </section>
-<section id="regression-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h4>
+<section id="hazard-plots-1" class="level4">
+<h4 class="anchored" data-anchor-id="hazard-plots-1">Hazard Plots</h4>
+<p><img src="images/nonparametric_hazard.png" class="img-fluid"></p>
+<p>The estimated risk of completing the puzzle rapidly increases during the first 20 seconds. From there, the estimated hazard is roughly constant until 60 seconds, then steadily increases for the remainder of the study.</p>
+<p><img src="images/nonparametric_hazard_gender.png" class="img-fluid"></p>
+<p>The estimated risk of completing the puzzle is lowest for female students across all time, t. While male students exhibit slightly higher potential for puzzle completion than females, we observe a similar trend between these two groups. A much sharper increase in potential to complete the puzzle for non-binary students occurs around 80 seconds.</p>
+<p><img src="images/nonparametric_hazard_squares.png" class="img-fluid"></p>
+<p>Over all time, the estimated potential to complete puzzles with 19 playable squares becomes notably larger than that of the larger sized puzzles (21, 22, and 40 squares). After 150 seconds, we observe the estimated risk of completion for 21 and 22 square puzzles increase slightly, but 21 and 19 square puzzles increase more rapidly.</p>
+</section>
+<section id="log-rank-test" class="level4">
+<h4 class="anchored" data-anchor-id="log-rank-test">Log-Rank Test</h4>
+<section id="gender" class="level5">
+<h5 class="anchored" data-anchor-id="gender">Gender</h5>
+<p><img src="images/logrank_gender.png" class="img-fluid"></p>
+<p>Since the p-value 0.883 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across male, female, and non-binary students for some time, t. This indicates a failure to reject the null hypothesis of the log-rank test.</p>
+</section>
+<section id="squares" class="level5">
+<h5 class="anchored" data-anchor-id="squares">Squares</h5>
+<p><img src="images/logrank_squares.png" class="img-fluid"></p>
+<p>Similarly, since the p-value 0.482 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across puzzles with 19, 21, 22, or 40 playable squares. This indicates a failure to reject the null hypothesis of the log-rank test.</p>
+</section>
+</section>
+</section>
+<section id="regression-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h3>
 <!-- Develop a Cox regression model to investigate the associations of the predictors (explanatory variables) with the hazard rate. You need only present your final model, including, but not limited to, parameter estimates, standard errors, and p-values. Discuss whether model assumptions have been met and whether you removed any influential or outlying cases. Be sure to present the residual diagnostic plots to support your discussion. Then for some key values of the predictors, present estimated hazard ratios and confidence intervals for the corresponding true hazard ratio. Provide interpretations of the hazard ratios -->
 </section>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
 <!-- Summarize and discuss any insightful discoveries about the time-to-event data and your most important findings. -->
 </section>
-<section id="appendix" class="level2">
-<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
 <!-- Include all R code used to conduct your analyses in the Appendix at the end of the report. -->
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p><strong>ADD DATA TABLE</strong></p>
+</section>
+<section id="parametric-and-non-parametric-analyses" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-and-non-parametric-analyses">Parametric and Non-Parametric Analyses</h3>
+<section id="summary-tables" class="level5">
+<h5 class="anchored" data-anchor-id="summary-tables">Summary Tables</h5>
+<p><strong>ADD TABLE CODE</strong></p>
+</section>
+<section id="graphs-and-tests" class="level5">
+<h5 class="anchored" data-anchor-id="graphs-and-tests">Graphs and Tests</h5>
+<p>The graphs and tests for parametric and non-parametric analyses were conducted in Minitab.</p>
+</section>
+</section>
+<section id="regression-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="regression-analysis-1">Regression Analysis</h3>
+<p><strong>ADD REGRESSION CODE</strong></p>
+</section>
 </section>
 
 </main>
