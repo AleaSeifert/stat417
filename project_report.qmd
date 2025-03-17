@@ -10,20 +10,22 @@ authors: Alea Seifert, Alie Hall, Jett Palmer, Libby Brill
 ```{r setup}
 #| message: false
 #| echo: false
+
+library(survival)
 library(knitr)
 
 source("clean_mini_times.R")
 ```
 
 # Introduction
-<!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study
-was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
 
-#### Origin of Data
+<!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
+
+### Origin of Data
 
 This data was student-collected by the members of this 417 project. We decided to collect data on the [New York Times Mini Crossword](https://www.nytimes.com/crosswords/game/mini) completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime)).
 
-#### Action Plan
+### Action Plan
 
 This study analyzed the time-to-event variable T, representing the time (in seconds) from when a subject presses “start” to when the mini is complete. The mini has a built-in timer to track participants time that was used for this study. The study was conducted over the course of five days, with each day featuring a different Mini puzzle. Participants were Cal Poly students, and no duplicate individuals were included in the study.
 
@@ -31,27 +33,31 @@ During each session, students attempted to solve the Mini. If they successfully 
 
 As an additional variable, we collected each participant’s reaction time using the Human Benchmark reaction time test. This was to see if there is any association between reaction time and Mini abilities. Our final data set includes the Mini completion time, whether the time was censored or not, the number of squares to be filled in, the participant’s self-identified gender, and the participant’s reaction time.
 
+### Variables
 
-#### Variables
-- time (quantitative)
-  - time starts when the puzzle is opened, when the Mini clock begins counting
-  - time is measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)
-  - time is censored at 300 seconds
-- censor (indicator)
-  - 0: censored, 1: complete
-- gender (categorical)
-  - participant will self-identify
-- reaction_time (quantitative)
-  - measured in milliseconds, as given by the Human Benchmark reaction time test
-- squares (quantitative)
-  - the number of squares to be filled in
-  - for example, the number of squares in the following puzzle would be recorded as 22:
-    ![](images/blank_mini.png)
-
+-   **time** (quantitative)
+    -   Starts when the puzzle is opened, when the Mini clock begins counting
+    -   Measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)
+    -   Censored at 300 seconds
+-   **censor** (indicator)
+    -   0: censored, 1: complete
+-   **gender** (categorical)
+    -   Participant self-identified (Female, Male, Non-Binary/Other)
+-   **reaction_time** (quantitative)
+    -   Measured in milliseconds, as given by the Human Benchmark reaction time test
+-   **squares** (quantitative)
+    -   The number of squares to be filled in
+    -   For example, the number of squares in the following puzzle would be recorded as 22: ![](images/blank_mini.png){width="50%"}
 
 # Main Report
 
-### Mean and Median Survival Times
+### Parametric Survival Analysis
+
+<!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
+
+The loglogistic distribution (location = 5.365, scale = 0.530) appears to fit the data best, as supported by the lowest Anderson-Darling statistic (112.542) when compared to other distributions. As seen in the quantile plot, all the observations fell close to the line and between the 95% confidence error bars.
+
+#### Loglogistic Summary Data
 
 ```{r}
 #| echo: false
@@ -80,24 +86,23 @@ kable(squares_stats, caption = "By Number of Squares",
       col.names = c("", "Mean (sec)", "Median (sec)"), digits = 2)
 ```
 
-### Parametric Survival Analysis
-<!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
+**CHANGE NUMBERS**
 
-Log-logistic
+**ADD INTERNPRETATIONS**
 
 #### Survival Plots
 
 ![](images/loglogistic_survival.png)
 
-The probability that a student has not completed the puzzle after time t, in seconds, decreases rapidly, then begins to plateau around 500 seconds.
+The probability that a student has not completed the puzzle after time t in seconds, given they have not completed it by t, decreases rapidly, then begins to plateau around 500 seconds.
 
 ![](images/loglogistic_survival_gender.png)
 
-When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. It appears that the probability that a male student has not completed the puzzle after time t is greater than the probability for female and non-binary students, for all time.
+When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. It appears that the probability that a male student does not complete the puzzle after time t, given they have not completed it by t, is greater than the corresponding probability for female and non-binary students, across all time.
 
 ![](images/loglogistic_survival_squares.png)
 
-We also compared survival times based on the number of playable squares and found that the probability subjects do not complete puzzles with 19 squares beyond time t is lowest, as compared to puzzles with more playable squares (21, 22, 40).
+We also compared survival times based on the number of playable squares and found that, given subjects have not completed the puzzle by time t, the probability they do not complete puzzles with 19 squares beyond t is lowest, as compared to puzzles with more playable squares (21, 22, 40).
 
 #### Hazard Plots
 
@@ -114,21 +119,24 @@ Before roughly 200 seconds, the potential of completing the puzzle is lowest for
 For all time t, the potential to complete the puzzle with 19 playable squares is notably higher than the potential to complete the puzzle for other size puzzles (21, 22, 40 squares).
 
 ### Non-Parametric Survival Analysis
+
 <!-- Use non-parametric methods to describe and compare survival experiences of the different groups in your data set. Examine and comment on the survival experience of all individuals in your data set, as well as the survival experiences of different groups of individuals. Use graphical displays such as Kaplan-Meier curves, and/or estimated hazard curves, and perform and report results of the log-rank test. In addition, compute various descriptive statistics of interest. Finally, compare some of your findings using the non-parametric approaches to your findings using the parametric approaches. -->
+
+Although the loglogistic distribution fit our data the best, since the actual distribution of the data is unknown, we will proceed with a non-parametric analysis.
 
 #### Survival Plots
 
 ![](images/nonparametric_survival.png)
 
-We estimate about 35% of students do not complete the puzzle by the end of the study. The estimated probability of not completing the puzzle beyond time t, in seconds, decreases steadily for all time.
+We estimate about 35% of students do not complete the puzzle by the end of the study. Given the puzzle has not been completed by time t in seconds, the estimated probability of not completing the puzzle beyond t decreases steadily for all time.
 
 ![](images/nonparametric_survival_gender.png)
 
-The estimated probability of not completing the puzzle by the end of the study appears to be similar across genders for all time. However, it appears that the probability of not completing the puzzle for female students is higher for most times prior to 175 seconds, then drops below male and non-binary students after 175 seconds.
+The estimated probability of not completing the puzzle by the end of the study appears to be similar across genders for all time. However, it appears that the probability of not completing the puzzle beyond t is higher for female students at most times prior to 175 seconds, then falls below male and non-binary students after 175 seconds, given they have not completed the puzzle by t.
 
 ![](images/nonparametric_survival_squares.png)
 
-The estimated probability that students do not solve puzzles with 22 playable squares beyond time t is lowest for most times, in seconds, with the exception of 175 to 200 seconds and briefly around 60 seconds. For most times, the estimated probability a student does not solve puzzles with 40 playable squares is highest, especially compared to puzzles with 22 squares.
+Given students have not completed puzzles with 22 squares by time t, the estimated probability that students do not solve 22 square puzzles beyond t is lowest for most of the study duration, with the exception of 175 to 200 seconds and briefly around 60 seconds. For most times, the estimated probability a student does not solve puzzles with 40 playable squares is highest, especially compared to puzzles with 22 squares.
 
 #### Hazard Plots
 
@@ -147,33 +155,79 @@ Over all time, the estimated potential to complete puzzles with 19 playable squa
 #### Log-Rank Test
 
 ##### Gender
-![](images/logrank_gender.png)
+
+![](images/logrank_gender.png){width="30%"}
 
 Since the p-value 0.883 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across male, female, and non-binary students for some time, t. This indicates a failure to reject the null hypothesis of the log-rank test.
 
 ##### Squares
-![](images/logrank_squares.png)
+
+![](images/logrank_squares.png){width="30%"}
 
 Similarly, since the p-value 0.482 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across puzzles with 19, 21, 22, or 40 playable squares. This indicates a failure to reject the null hypothesis of the log-rank test.
 
 ### Regression Analysis
+
 <!-- Develop a Cox regression model to investigate the associations of the predictors (explanatory variables) with the hazard rate. You need only present your final model, including, but not limited to, parameter estimates, standard errors, and p-values. Discuss whether model assumptions have been met and whether you removed any influential or outlying cases. Be sure to present the residual diagnostic plots to support your discussion. Then for some key values of the predictors, present estimated hazard ratios and confidence intervals for the corresponding true hazard ratio. Provide interpretations of the hazard ratios -->
 
+We have developed many Cox regression models over the course of our analysis. There was insignificant evidence to conclude that at least one Beta value is not equal to 0 for Gender. Similarly, there was insignificant evidence for Squares, Reaction Time or Day.
+
+Our final model uses squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables.
+
+![](images/regression_model.png)
+
+For the purposes of this project we will use this model, however, we would not use this for professional statistical analysis.
+
+#### Model Assumptions
+
+![](images/regression_residuals_squares.png)
+
+The LOWESS is approximately horizontal, meaning the relationship between the predictor squares and log-hazard is approximately linear
+
+**ADD GRAPH**
+
+*The LOWESS fit is approximately horizontal, meaning we do not expect the proportional hazards assumption to have been violated. However, there is some pattern, specifically, a decreasing linear trend, so we will investigate the proportional hazard further.*
+
+##### Testing Proportional Hazards
+
+![](images/regression_ph.png){width="30%"}
+
+`cox.zph()` returns a p-value of over .05. This indicates that our P.H. is not violated.
+
+##### **Some Section Title**
+
+The estimated hazard of completing the mini crossword for each addition square present within the puzzle is 0.982
+
+We are 95% confident that the true hazard of completing a mini crossword for each one-square increase in puzzle size is 7.57% lower and 4.4% higher.
+
+##### Hazard: 22 vs. 19 Squares
+
+The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than compared to the hazard of completing the mini crossword with 19 squares. 
+
+We are 95% confident that the true hazard of completing a mini crossword with 22 squares is between 21.03% lower and 13% higher when compared to the hazard of completing the mini crossword with 19 squares.
+
+##### Hazard: 40 vs. 19 Squares
+
+The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than compared to the hazard of completing the mini crossword with 19 squares. 
+
+We are 95% confident that the true hazard of completing a mini crossword with 40 squares is between 80.56% lower and 147% higher when compared to the hazard of completing the mini crossword with 19 squares.
+
 # Conclusion
+
 <!-- Summarize and discuss any insightful discoveries about the time-to-event data and your most important findings. -->
 
 # Appendix
+
 <!-- Include all R code used to conduct your analyses in the Appendix at the end of the report. -->
 
-### Data
-**ADD DATA TABLE**
-
 ### Parametric and Non-Parametric Analyses
-##### Summary Tables
-**ADD TABLE CODE**
 
-##### Graphs and Tests
 The graphs and tests for parametric and non-parametric analyses were conducted in Minitab.
 
 ### Regression Analysis
+
 **ADD REGRESSION CODE**
+
+### Data
+
+The data set, along with all of the code used, can also be found at: [github.com/AleaSeifert/stat417.git](https://github.com/AleaSeifert/stat417.git)
