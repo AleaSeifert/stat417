@@ -90,10 +90,10 @@ schoen <- residuals(model_squares, type = "schoenfeld")
 
 
 comp.times <- sort(mini_times[mini_times$censor!= 0,]$time)
-plot(comp.times, schoen[,1], xlab="Time", ylab = "Schoenfeld Residuals",
+plot(comp.times, schoen, xlab="Time", ylab = "Schoenfeld Residuals",
      main = "Predictor: Squares"
      )
-smooth.sres <-lowess(comp.times, schoen[,1])
+smooth.sres <-lowess(comp.times, schoen)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 
 

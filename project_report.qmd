@@ -57,39 +57,6 @@ As an additional variable, we collected each participant’s reaction time using
 
 The loglogistic distribution (location = 5.365, scale = 0.530) appears to fit the data best, as supported by the lowest Anderson-Darling statistic (112.542) when compared to other distributions. As seen in the quantile plot, all the observations fell close to the line and between the 95% confidence error bars.
 
-#### Loglogistic Summary Data
-
-```{r}
-#| echo: false
-
-overall_stats <- mini_times |>
-  summarise(Mean = mean(time),
-            Median = median(time))
-
-gender_stats <- mini_times |>
-  group_by(gender) |>
-  summarise(Mean = mean(time),
-            Median = median(time)) |>
-  rename(Gender = gender)
-
-squares_stats <- mini_times |>
-  group_by(squares) |>
-  summarise(Mean = mean(time),
-            Median = median(time)) |>
-  rename(Squares = squares)
-
-kable(overall_stats, caption = "Overall",
-      col.names = c("Mean (sec)", "Median (sec)"), digits = 2)
-kable(gender_stats, caption = "By Gender",
-      col.names = c("", "Mean (sec)", "Median (sec)"), digits = 2)
-kable(squares_stats, caption = "By Number of Squares",
-      col.names = c("", "Mean (sec)", "Median (sec)"), digits = 2)
-```
-
-**CHANGE NUMBERS**
-
-**ADD INTERNPRETATIONS**
-
 #### Survival Plots
 
 ![](images/loglogistic_survival.png)
@@ -117,6 +84,37 @@ Before roughly 200 seconds, the potential of completing the puzzle is lowest for
 ![](images/loglogistic_hazard_squares.png)
 
 For all time t, the potential to complete the puzzle with 19 playable squares is notably higher than the potential to complete the puzzle for other size puzzles (21, 22, 40 squares).
+
+#### Loglogistic Summary Data
+
+##### Overall
+
+| Mean (s.) | Median (s.) |
+|-----------|-------------|
+| 201.666   | 199         |
+
+The estimated mean survival time for mini puzzle completion is 201.67 seconds. The estimated time at which 50% of the students have already completed the mini puzzle and 505 have not is 199 seconds.
+
+##### Gender
+
+|                  | Mean (s.) | Median (s.) |
+|------------------|-----------|-------------|
+| Female           | 202.792   | 185         |
+| Male             | 200.313   | 229         |
+| Non-Binary/Other | 183.5     | 120         |
+
+Female students had an estimated mean survival time of 202.792 which is slightly higher than males and a median survival time of 185 seconds. Although male students had a mean survival time of 200.313 seconds, their median survival time was 229 seconds which is larger than that for females.  Non-binary had the smallest estimated mean and median completion times.
+
+##### Number of Squares
+
+|                   | Mean (s.) | Median (s.) |
+|-------------------|-----------|-------------|
+| 19                | 194.958   | 159         |
+| 21                | 226.727   | `-`         |
+| 22                | 181.852   | 172         |
+| 40                | 235.375   | 288         |
+
+The 22-squares puzzle had the lowest estimated mean of 181.852 seconds and median of 172 seconds, meaning it was generally completed on the faster side..  The 19-squares puzzle had a slightly higher mean of 194.958 seconds and median of 159 second survival time, indicating it was completed slightly slower at the median level than the 22-squares puzzle. The 21-squares puzzle had a mean of 226.727 seconds, but no median could be determined, this means that 50% of participants did not complete the puzzle before the study ended at 300 seconds. The 40-squares puzzle took the longest to complete, with a mean of 235.375 seconds and a median of 288 seconds, reinforcing the possible trend that puzzles with more squares may generally require more time to finish.
 
 ### Non-Parametric Survival Analysis
 
@@ -166,68 +164,147 @@ Since the p-value 0.883 is larger than any reasonable level of significance, we 
 
 Similarly, since the p-value 0.482 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across puzzles with 19, 21, 22, or 40 playable squares. This indicates a failure to reject the null hypothesis of the log-rank test.
 
+#### **SECTION NAME (also is this the right location?)**
+
+Comparing the nonparametric and parametric survival analyses, we observe that both approaches lead to the same general conclusions, despite differences in specific values. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that timeframe. However, both methods support the conclusion that the 21-squares puzzle was more time consuming, with many participants failing to complete it within the study time. The 19- and 22-squares puzzles generally took less time and the 40-squares puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots.
+
 ### Regression Analysis
 
 <!-- Develop a Cox regression model to investigate the associations of the predictors (explanatory variables) with the hazard rate. You need only present your final model, including, but not limited to, parameter estimates, standard errors, and p-values. Discuss whether model assumptions have been met and whether you removed any influential or outlying cases. Be sure to present the residual diagnostic plots to support your discussion. Then for some key values of the predictors, present estimated hazard ratios and confidence intervals for the corresponding true hazard ratio. Provide interpretations of the hazard ratios -->
 
-We have developed many Cox regression models over the course of our analysis. There was insignificant evidence to conclude that at least one Beta value is not equal to 0 for Gender. Similarly, there was insignificant evidence for Squares, Reaction Time or Day.
+#### Model Selection
 
-Our final model uses squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables.
+We have developed many Cox regression models over the course of our analysis. 
+There was insignificant evidence to conclude that at least one Beta value is not equal to 0 for Gender. Similarly, there was insignificant evidence for Squares, Reaction Time or Day, or for any combination of variables, both as main effects and interactions. 
 
-![](images/regression_model.png)
+Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables. 
+
+```{r}
+#| echo: false
+
+model_squares <- coxph(formula = Surv(time, censor) ~ squares, data = mini_times)
+summary(model_squares)
+```
 
 For the purposes of this project we will use this model, however, we would not use this for professional statistical analysis.
 
 #### Model Assumptions
 
-![](images/regression_residuals_squares.png)
+##### Martingale Residuals 
+
+```{r}
+#| echo: false
+
+mart <- residuals(model_squares, type = "martingale")
+plot(as.numeric(mini_times$squares), mart, type = "p", xlab = "Squares",
+     ylab = "Martingale Residuals", main = "Predictor: Squares")
+smooth.sres <- lowess(mini_times$squares, mart)
+lines(smooth.sres$x, smooth.sres$y, lty = 1)
+```
 
 The LOWESS is approximately horizontal, meaning the relationship between the predictor squares and log-hazard is approximately linear
 
-**ADD GRAPH**
+##### Schoenfeld Residuals
 
-*The LOWESS fit is approximately horizontal, meaning we do not expect the proportional hazards assumption to have been violated. However, there is some pattern, specifically, a decreasing linear trend, so we will investigate the proportional hazard further.*
+```{r}
+#| echo: false
 
-##### Testing Proportional Hazards
+schoen <- residuals(model_squares, type = "schoenfeld")
 
-![](images/regression_ph.png){width="30%"}
+comp.times <- sort(mini_times[mini_times$censor!= 0,]$time)
+plot(comp.times, schoen, xlab="Time", ylab = "Schoenfeld Residuals",
+     main = "Predictor: Squares")
+smooth.sres <- lowess(comp.times, schoen)
+lines(smooth.sres$x, smooth.sres$y, lty = 1)
+```
 
-`cox.zph()` returns a p-value of over .05. This indicates that our P.H. is not violated.
+The LOWESS fit is approximately horizontal, meaning we do not expect the proportional hazards assumption to have been violated. However, we will investigate this further with a formal test.
 
-##### **Some Section Title**
+```{r}
+#| echo: false
+
+cox.zph(model_squares, transform = "log")
+```
+
+Testing Proportional Hazards with `cox.zph()` returns a p-value of over .05. This indicates that our P.H. is not violated.
+
+#### Interpretations
 
 The estimated hazard of completing the mini crossword for each addition square present within the puzzle is 0.982
 
 We are 95% confident that the true hazard of completing a mini crossword for each one-square increase in puzzle size is 7.57% lower and 4.4% higher.
 
-##### Hazard: 22 vs. 19 Squares
+##### Hazard Between 22 Squares and 19 Squares:
 
 The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than compared to the hazard of completing the mini crossword with 19 squares. 
 
 We are 95% confident that the true hazard of completing a mini crossword with 22 squares is between 21.03% lower and 13% higher when compared to the hazard of completing the mini crossword with 19 squares.
 
-##### Hazard: 40 vs. 19 Squares
+##### Hazard Between 40 Squares and 19 Squares:
 
 The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than compared to the hazard of completing the mini crossword with 19 squares. 
 
 We are 95% confident that the true hazard of completing a mini crossword with 40 squares is between 80.56% lower and 147% higher when compared to the hazard of completing the mini crossword with 19 squares.
 
 # Conclusion
-
 <!-- Summarize and discuss any insightful discoveries about the time-to-event data and your most important findings. -->
 
-# Appendix
+This study explored relationships between completion time of the NYT mini crossword and factors including gender, puzzle size, and reaction time. We should note that the true distribution of mini crossword completion times is unknown and our Cox regression models found the auxiliary variables insignificant predictors of completion time. Thus, in practice, non-parametric analysis with Kaplan-Meyer estimation is ideal for understanding mini crossword completion times. For the purposes of this project, we still conducted all three forms of analysis.
 
+Parametric models (loglogistic) suggested a difference in mini completion times for male students as compared to female and non-binary students. The loglogistic model also identified 40 square puzzles as leading to highest probabilities of puzzle incompletion for all time.
+
+The Kaplan-Meier analysis revealed similar relationships between completion time and auxiliary variables. We observed a notable amount of intersection between the lines for each level which likely led to the insignificance of our non-parametric models (log-rank, p > 0.05).
+
+Finally, our Cox regression models indicated that gender, puzzle size, and reaction time were insignificant predictors of puzzle completion time. We ran a stepwise variable selection function and found that a reduced model with only puzzle size (squares) returned the lowest AIC. Hence, we used this model to conduct further analyses that compared the hazard rates and survival probabilities between puzzles with various sizes, generally indicating that larger sized puzzles have lower hazard of completion, although our findings were not significant at the .05 level.
+
+While these findings do not have immediate practical applications, they challenge intuitive assumptions about puzzle completion times across groups. Future research could explore the high variability in completion times among individuals, possibly influenced by skill level or frequency of play. A larger sample size or tracking individuals over multiple days could provide more insight into these factors.
+
+# Appendix
 <!-- Include all R code used to conduct your analyses in the Appendix at the end of the report. -->
 
 ### Parametric and Non-Parametric Analyses
+
+**ADD QUANTILE PLOT FOR LOGLOGISTIC**
 
 The graphs and tests for parametric and non-parametric analyses were conducted in Minitab.
 
 ### Regression Analysis
 
-**ADD REGRESSION CODE**
+```{r}
+#| eval: false
+
+model_squares <- coxph(formula = Surv(time, censor) ~ squares, data = mini_times)
+summary(model_squares)
+```
+
+```{r}
+#| eval: false
+
+mart <- residuals(model_squares, type = "martingale")
+plot(as.numeric(mini_times$squares), mart, type = "p", xlab = "Squares",
+     ylab = "Martingale Residuals", main = "Predictor: Squares")
+smooth.sres <- lowess(mini_times$squares, mart)
+lines(smooth.sres$x, smooth.sres$y, lty = 1)
+```
+
+```{r}
+#| eval: false
+
+schoen <- residuals(model_squares, type = "schoenfeld")
+
+comp.times <- sort(mini_times[mini_times$censor!= 0,]$time)
+plot(comp.times, schoen, xlab="Time", ylab = "Schoenfeld Residuals",
+     main = "Predictor: Squares")
+smooth.sres <- lowess(comp.times, schoen)
+lines(smooth.sres$x, smooth.sres$y, lty = 1)
+```
+
+```{r}
+#| eval: false
+
+cox.zph(model_squares, transform = "log")
+```
 
 ### Data
 
-The data set, along with all of the code used, can also be found at: [github.com/AleaSeifert/stat417.git](https://github.com/AleaSeifert/stat417.git)
+The data set, along with all of the code, can also be found at: [github.com/AleaSeifert/stat417.git](https://github.com/AleaSeifert/stat417.git)
