@@ -30,4 +30,18 @@ ggplot(data = mini,
 ```
 
 
+```{r}
+model_puz <- coxph(Surv(`time`, censor)~as.factor(puzzle), data = mini_times)
+```
+
+
+
+```{r}
+model_puz <- coxph(Surv(`time`, censor)~as.factor(puzzle) + as.factor, data = mini_times)
+summary(model.main.effects)
+
+
+
+step(model.main.effects, scope = ~. ^1)
+```
 
