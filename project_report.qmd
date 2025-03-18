@@ -24,7 +24,7 @@ source("clean_mini_times.R")
 
 ### Origin of Data
 
-These data were student-collected by the members of this 417 project. We decided to collect data on completion of the [New York Times Mini Crossword](https://www.nytimes.com/crosswords/game/mini) completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or censored, number of playable squares, the participant’s self-identified gender, and student reaction time in milliseconds (according to the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime)).
+These data were student-collected by the members of this 417 project. We decided to collect data on completion of the [New York Times Mini Crossword](https://www.nytimes.com/crosswords/game/mini), referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or censored, number of playable squares, the participant’s self-identified gender, and student reaction time in milliseconds (according to the [Human Benchmark](https://humanbenchmark.com/tests/reactiontime)).
 
 ### Action Plan
 
@@ -122,7 +122,7 @@ Female students had a slightly higher mean survival time (202.79 seconds) than m
 | 22                | 181.852   | 172         |
 | 40                | 235.375   | 288         |
 
-The 22-squares puzzle had the shortest estimated mean completion time of 181.852 seconds and a median of 172 seconds, indicating it was generally solved more quickly. The 19-squares puzzle had a slightly higher mean of 194.958 seconds and shortest median survival time of 159 seconds, suggesting it was completed slightly faster at the median level but took longer on average than the 22-squares puzzle. The 21-squares puzzle had a mean completion time of 226.727 seconds; however, no median could be determined, as 50% of participants did not finish the puzzle within the 300-second study limit. The 40-squares puzzle took the longest to complete, with a mean of 235.375 seconds and a median of 288 seconds, reinforcing our hypothesis that puzzles with more squares usually require more time to finish.
+The 22-square puzzle had the shortest estimated mean completion time of 181.852 seconds and a median of 172 seconds, indicating it was generally solved more quickly. The 19-square puzzle had a slightly higher mean of 194.958 seconds and shortest median survival time of 159 seconds, suggesting it was completed slightly faster at the median level but took longer on average than the 22-square puzzle. The 21-square puzzle had a mean completion time of 226.727 seconds; however, no median could be determined, as 50% of participants did not finish the puzzle within the 300-second study limit. The 40-square puzzle took the longest to complete, with a mean of 235.375 seconds and a median of 288 seconds, reinforcing our hypothesis that puzzles with more squares usually require more time to finish.
 
 {{< pagebreak >}}
 
@@ -176,9 +176,9 @@ Since the p-value 0.883 is larger than any reasonable level of significance, we 
 
 Similarly, since the p-value 0.482 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across puzzles with 19, 21, 22, or 40 playable squares. This indicates a failure to reject the null hypothesis of the log-rank test.
 
-##### Comparing Nonparametric and Parametric survival analyses
+##### Comparing Parametric and Non-Parametric Survival Analyses
 
-We found that both approaches lead to the same general conclusions, when assesing mini completion times. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that timeframe. Both methods support the conclusion that the 21-squares puzzle was more time consuming, with many participants failing to complete it within five minutes. The 19- and 22-squares puzzles generally took less time and the 40-squares puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots.
+We found that both approaches lead to the same general conclusions, when assessing mini completion times. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that time frame. Both methods support the conclusion that the 21-square puzzle was more time consuming, with many participants failing to complete it within five minutes. The 19- and 22-square puzzles generally took less time and the 40-square puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots.
 
 {{< pagebreak >}}
 
@@ -188,8 +188,7 @@ We found that both approaches lead to the same general conclusions, when assesin
 
 #### Model Selection
 
-We have developed many Cox regression models over the course of our analysis. 
-There was insignificant evidence to conclude that at least one Beta value is not equal to 0 for Gender. Similarly, there was insignificant evidence for Squares, Reaction Time or Day, or for any combination of variables, both as main effects and interactions. 
+We developed many Cox regression models over the course of our analysis. Through these analyses, we found insignificant evidence to conclude that one or more Genders have are significantly different Mini completion times. Similarly, there was insignificant evidence for Squares, Reaction Time or Day, or for any combination of variables, both as main effects and interactions. 
 
 Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables. 
 
@@ -244,7 +243,7 @@ The LOWESS fit is approximately horizontal, meaning we do not expect the proport
 cox.zph(model_squares, transform = "log")
 ```
 
-Testing Proportional Hazards with `cox.zph()` returns a p-value of over .05. This indicates that our P.H. is not violated.
+Testing Proportional Hazards with `cox.zph()` returns a p-value of over .05. This indicates that our P.H. assumption is not violated.
 
 #### Interpretations
 
