@@ -61,7 +61,7 @@ Our final data set includes the Mini completion time, whether the time was censo
 
 <!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
 
-The loglogistic distribution (location = 5.365, scale = 0.530) appears to fit the data best, as supported by the lowest Anderson-Darling statistic (112.542) when compared to other distributions. Using a quantile plot, we observed all the observations fell close to the line and between the 95% confidence error bars.
+The loglogistic distribution (location = 5.365, scale = 0.530) appears to fit the data best, as supported by the lowest Anderson-Darling statistic (112.542) when compared to other distributions. Using a quantile plot (see appendix), we observed all the observations fell close to the line and between the 95% confidence error bars.
 
 #### Survival Plots
 
@@ -285,7 +285,7 @@ While these findings do not have immediate practical applications, they challeng
 
 ### Parametric and Non-Parametric Analyses
 
-**ADD QUANTILE PLOT FOR LOGLOGISTIC**
+![](images/quantile_plot.png)
 
 The graphs and tests for parametric and non-parametric analyses were conducted in Minitab.
 
