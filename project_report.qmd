@@ -188,9 +188,9 @@ We found that both approaches lead to the same general conclusions, when assessi
 
 #### Model Selection
 
-We developed many Cox regression models over the course of our analysis. Through these analyses, we found insignificant evidence to conclude that one or more Genders have are significantly different Mini completion times. Similarly, there was insignificant evidence for Squares, Reaction Time or Day, or for any combination of variables, both as main effects and interactions. 
+Over the course of our analysis, we developed many Cox regression models. Through these analyses, we found insignificant evidence to conclude that one or more genders have are significantly different Mini completion times. Similarly, there was insignificant evidence for squares, reaction time or day, any combination of variables (both as main effects and interactions), to conclude that different values of these variables have significantly different Mini completion times. 
 
-Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables. 
+Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables, as determined with a step-wise model selection procedure. 
 
 ```{r}
 #| echo: false
@@ -199,7 +199,7 @@ model_squares <- coxph(formula = Surv(time, censor) ~ squares, data = mini_times
 summary(model_squares)
 ```
 
-For the purposes of this project we will use this model, however, we would not use this for professional statistical analysis.
+For the purposes of this project we will use this model for further interpretation, however, we would not use this for professional statistical analysis due to insignificance of the likelihood ratio test.
 
 {{< pagebreak >}}
 
@@ -235,7 +235,7 @@ smooth.sres <- lowess(comp.times, schoen)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 ```
 
-The LOWESS fit is approximately horizontal, meaning we do not expect the proportional hazards assumption to have been violated. However, we will investigate this further with a formal test.
+The LOWESS fit is approximately horizontal, meaning the proportional hazards assumption will not been violated. However, we will investigate this further with a formal test.
 
 ```{r}
 #| echo: false
@@ -243,25 +243,28 @@ The LOWESS fit is approximately horizontal, meaning we do not expect the proport
 cox.zph(model_squares, transform = "log")
 ```
 
-Testing Proportional Hazards with `cox.zph()` returns a p-value of over .05. This indicates that our P.H. assumption is not violated.
+Testing Proportional Hazards with `cox.zph()` returns a p-value larger than any reasonable value of significance. This indicates that our P.H. assumption is not violated.
 
 #### Interpretations
 
-The estimated hazard of completing the mini crossword for each addition square present within the puzzle is 0.982
+The estimated hazard of completing the mini crossword for each additional square present within the puzzle is 0.982
 
 We are 95% confident that the true hazard of completing a mini crossword for each one-square increase in puzzle size is 7.57% lower and 4.4% higher.
 
+
 ##### Hazard Between 22 Squares and 19 Squares:
 
-The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than compared to the hazard of completing the mini crossword with 19 squares. 
+The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than the hazard of completing the mini crossword with 19 squares. 
 
 We are 95% confident that the true hazard of completing a mini crossword with 22 squares is between 21.03% lower and 13% higher when compared to the hazard of completing the mini crossword with 19 squares.
 
 ##### Hazard Between 40 Squares and 19 Squares:
 
-The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than compared to the hazard of completing the mini crossword with 19 squares. 
+The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than the hazard of completing the mini crossword with 19 squares. 
 
 We are 95% confident that the true hazard of completing a mini crossword with 40 squares is between 80.56% lower and 147% higher when compared to the hazard of completing the mini crossword with 19 squares.
+
+These confidence intervals all capture 0%. This is consistent with the insignificance of our Likelihood Ratio Test, and is another indicator of the insignificance of squares as a predictor for mini completion time.
 
 {{< pagebreak >}}
 
