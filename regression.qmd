@@ -28,7 +28,9 @@ model3 <- coxph(Surv(`time`, censor)~squares, data = mini_times)
 
 model4 <- coxph(Surv(`time`, censor)~reaction_time, data = mini_times)
 
-main_effects_model <- coxph(Surv(`time`, censor)~reaction_time + squares + as.factor(day)+as.factor(gender), data = mini_times)
+
+
+main_effects_model <- coxph(Surv(`time`, censor)~reaction_time + squares + as.factor(day)+as.factor(gender)+as.factor(puzzle), data = mini_times)
 
 summary(main_effects_model)
 
@@ -39,6 +41,22 @@ summary(model4)
 
 summary(model_puz)
 
+step(model_puz)
+step(model1)
+
+step(main_effects_model)
+
+step(main_effects_model, scope = ~. ^2)
+
+step(model3)
+
+
+coxph(formula = Surv(time, censor) ~ squares + as.factor(gender) + 
+    squares:as.factor(gender), data = mini_times)|>summary()
+
+model_squares <- coxph(formula = Surv(time, censor) ~ squares, data = mini_times)
+
+summary(model_squares)
 
 
 
@@ -54,10 +72,12 @@ Select model_puz
 
 ### Martingale Residuals
 ```{r}
-mart <- residuals(model_puz, type = "martingale")
-plot(as.numeric(mini_times$puzzle), mart, type = "p", xlab = "Puzzle", ylab = "Martingale Residuals",
-     main = "Predictor: Puzzle")
-smooth.sres <-lowess(mini_times$puzzle, mart)
+
+
+mart <- residuals(model_squares, type = "martingale")
+plot(as.numeric(mini_times$squares), mart, type = "p", xlab = "Squares", ylab = "Martingale Residuals",
+     main = "Predictor: Squares")
+smooth.sres <-lowess(mini_times$squares, mart)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 
 
@@ -66,14 +86,14 @@ lines(smooth.sres$x, smooth.sres$y, lty = 1)
 
 ### Schoenfeld Residuals
 ```{r}
-schoen <- residuals(model_puz, type = "schoenfeld")
+schoen <- residuals(model_squares, type = "schoenfeld")
 
 
 comp.times <- sort(mini_times[mini_times$censor!= 0,]$time)
-plot(comp.times, schoen[,1], xlab="Time", ylab = "Schoenfeld Residuals",
-     main = "Predictor: Puzzle"
+plot(comp.times, schoen, xlab="Time", ylab = "Schoenfeld Residuals",
+     main = "Predictor: Squares"
      )
-smooth.sres <-lowess(comp.times, schoen[,1])
+smooth.sres <-lowess(comp.times, schoen)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 
 

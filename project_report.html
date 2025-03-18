@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -45,10 +79,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#origin-of-data" id="toc-origin-of-data" class="nav-link" data-scroll-target="#origin-of-data">Origin of Data</a></li>
+  <li><a href="#action-plan" id="toc-action-plan" class="nav-link" data-scroll-target="#action-plan">Action Plan</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
+  </ul></li>
   <li><a href="#main-report" id="toc-main-report" class="nav-link" data-scroll-target="#main-report">Main Report</a>
   <ul class="collapse">
-  <li><a href="#mean-and-median-survival-times" id="toc-mean-and-median-survival-times" class="nav-link" data-scroll-target="#mean-and-median-survival-times">Mean and Median Survival Times</a></li>
   <li><a href="#parametric-survival-analysis" id="toc-parametric-survival-analysis" class="nav-link" data-scroll-target="#parametric-survival-analysis">Parametric Survival Analysis</a></li>
   <li><a href="#non-parametric-survival-analysis" id="toc-non-parametric-survival-analysis" class="nav-link" data-scroll-target="#non-parametric-survival-analysis">Non-Parametric Survival Analysis</a></li>
   <li><a href="#regression-analysis" id="toc-regression-analysis" class="nav-link" data-scroll-target="#regression-analysis">Regression Analysis</a></li>
@@ -56,9 +94,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
   <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   <li><a href="#parametric-and-non-parametric-analyses" id="toc-parametric-and-non-parametric-analyses" class="nav-link" data-scroll-target="#parametric-and-non-parametric-analyses">Parametric and Non-Parametric Analyses</a></li>
   <li><a href="#regression-analysis-1" id="toc-regression-analysis-1" class="nav-link" data-scroll-target="#regression-analysis-1">Regression Analysis</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -93,146 +131,60 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study
-was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
-<section id="origin-of-data" class="level4">
-<h4 class="anchored" data-anchor-id="origin-of-data">Origin of Data</h4>
+<!-- Provide a brief description of the data set you have selected, i.e. the variables, how the study was conducted, and any other details you can provide. If you collected your own data, then describe how the data were collected and how (right) censoring could occur. Be sure to define the time-to-event variable and how right censoring could occur. -->
+<section id="origin-of-data" class="level3">
+<h3 class="anchored" data-anchor-id="origin-of-data">Origin of Data</h3>
 <p>This data was student-collected by the members of this 417 project. We decided to collect data on the <a href="https://www.nytimes.com/crosswords/game/mini">New York Times Mini Crossword</a> completion, referred to as the Mini henceforth. We recorded the following data on 51 Cal Poly students: time to Mini completion in seconds (up to 300 seconds), whether the time was complete or not, number of squares that the Mini had to fill in, the participant’s self-identified gender, and student reaction time in milliseconds (according to the <a href="https://humanbenchmark.com/tests/reactiontime">Human Benchmark</a>).</p>
 </section>
-<section id="action-plan" class="level4">
-<h4 class="anchored" data-anchor-id="action-plan">Action Plan</h4>
+<section id="action-plan" class="level3">
+<h3 class="anchored" data-anchor-id="action-plan">Action Plan</h3>
 <p>This study analyzed the time-to-event variable T, representing the time (in seconds) from when a subject presses “start” to when the mini is complete. The mini has a built-in timer to track participants time that was used for this study. The study was conducted over the course of five days, with each day featuring a different Mini puzzle. Participants were Cal Poly students, and no duplicate individuals were included in the study.</p>
 <p>During each session, students attempted to solve the Mini. If they successfully completed the puzzle within 300 seconds (five minutes), we recorded their total completion time. If the five minutes expiref before they won, their time was recorded as censored (300+ seconds). Additionally, if a student quit before 300 seconds without solving the puzzle, or turned on the autocheck feature, their time was marked as censored (incomplete time in seconds).</p>
 <p>As an additional variable, we collected each participant’s reaction time using the Human Benchmark reaction time test. This was to see if there is any association between reaction time and Mini abilities. Our final data set includes the Mini completion time, whether the time was censored or not, the number of squares to be filled in, the participant’s self-identified gender, and the participant’s reaction time.</p>
 </section>
-<section id="variables" class="level4">
-<h4 class="anchored" data-anchor-id="variables">Variables</h4>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
 <ul>
-<li>time (quantitative)
+<li><strong>time</strong> (quantitative)
 <ul>
-<li>time starts when the puzzle is opened, when the Mini clock begins counting</li>
-<li>time is measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)</li>
-<li>time is censored at 300 seconds</li>
+<li>Starts when the puzzle is opened, when the Mini clock begins counting</li>
+<li>Measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)</li>
+<li>Censored at 300 seconds</li>
 </ul></li>
-<li>censor (indicator)
+<li><strong>censor</strong> (indicator)
 <ul>
 <li>0: censored, 1: complete</li>
 </ul></li>
-<li>gender (categorical)
+<li><strong>gender</strong> (categorical)
 <ul>
-<li>participant will self-identify</li>
+<li>Participant self-identified (Female, Male, Non-Binary/Other)</li>
 </ul></li>
-<li>reaction_time (quantitative)
+<li><strong>reaction_time</strong> (quantitative)
 <ul>
-<li>measured in milliseconds, as given by the Human Benchmark reaction time test</li>
+<li>Measured in milliseconds, as given by the Human Benchmark reaction time test</li>
 </ul></li>
-<li>squares (quantitative)
+<li><strong>squares</strong> (quantitative)
 <ul>
-<li>the number of squares to be filled in</li>
-<li>for example, the number of squares in the following puzzle would be recorded as 22: <img src="images/blank_mini.png" class="img-fluid"></li>
+<li>The number of squares to be filled in</li>
+<li>For example, the number of squares in the following puzzle would be recorded as 22: <img src="images/blank_mini.png" class="img-fluid" style="width:50.0%"></li>
 </ul></li>
 </ul>
 </section>
 </section>
 <section id="main-report" class="level1">
 <h1>Main Report</h1>
-<section id="mean-and-median-survival-times" class="level3">
-<h3 class="anchored" data-anchor-id="mean-and-median-survival-times">Mean and Median Survival Times</h3>
-<div class="cell">
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Overall</caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Mean (sec)</th>
-<th style="text-align: right;">Median (sec)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">194.84</td>
-<td style="text-align: right;">182</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>By Gender</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">Mean (sec)</th>
-<th style="text-align: right;">Median (sec)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Female</td>
-<td style="text-align: right;">192.19</td>
-<td style="text-align: right;">182.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Male</td>
-<td style="text-align: right;">200.31</td>
-<td style="text-align: right;">234.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Non-Binary/Other</td>
-<td style="text-align: right;">193.50</td>
-<td style="text-align: right;">195.0</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>By Number of Squares</caption>
-<thead>
-<tr class="header">
-<th style="text-align: right;"></th>
-<th style="text-align: right;">Mean (sec)</th>
-<th style="text-align: right;">Median (sec)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">173.29</td>
-<td style="text-align: right;">136.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">21</td>
-<td style="text-align: right;">226.73</td>
-<td style="text-align: right;">300.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">22</td>
-<td style="text-align: right;">181.85</td>
-<td style="text-align: right;">172.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">220.00</td>
-<td style="text-align: right;">236.5</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
 <section id="parametric-survival-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="parametric-survival-analysis">Parametric Survival Analysis</h3>
 <!-- Through approaches we have discussed in the class, find a probability distribution that best fits your time-to-event data. Explain why the particular distribution was chosen. Once you have determined a probability distribution, construct the survival function and hazard function for all individuals in the data set and describe your observations. In addition, examine the survival and hazard functions for different groups of interest and report what you observe. Finally, report the mean and median survival times for all individuals and for the various groups you have examined. -->
-<p>Log-logistic</p>
+<p>The loglogistic distribution (location = 5.365, scale = 0.530) appears to fit the data best, as supported by the lowest Anderson-Darling statistic (112.542) when compared to other distributions. As seen in the quantile plot, all the observations fell close to the line and between the 95% confidence error bars.</p>
 <section id="survival-plots" class="level4">
 <h4 class="anchored" data-anchor-id="survival-plots">Survival Plots</h4>
 <p><img src="images/loglogistic_survival.png" class="img-fluid"></p>
-<p>The probability that a student has not completed the puzzle after time t, in seconds, decreases rapidly, then begins to plateau around 500 seconds.</p>
+<p>The probability that a student has not completed the puzzle after time t in seconds, given they have not completed it by t, decreases rapidly, then begins to plateau around 500 seconds.</p>
 <p><img src="images/loglogistic_survival_gender.png" class="img-fluid"></p>
-<p>When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. It appears that the probability that a male student has not completed the puzzle after time t is greater than the probability for female and non-binary students, for all time.</p>
+<p>When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. It appears that the probability that a male student does not complete the puzzle after time t, given they have not completed it by t, is greater than the corresponding probability for female and non-binary students, across all time.</p>
 <p><img src="images/loglogistic_survival_squares.png" class="img-fluid"></p>
-<p>We also compared survival times based on the number of playable squares and found that the probability subjects do not complete puzzles with 19 squares beyond time t is lowest, as compared to puzzles with more playable squares (21, 22, 40).</p>
+<p>We also compared survival times based on the number of playable squares and found that, given subjects have not completed the puzzle by time t, the probability they do not complete puzzles with 19 squares beyond t is lowest, as compared to puzzles with more playable squares (21, 22, 40).</p>
 </section>
 <section id="hazard-plots" class="level4">
 <h4 class="anchored" data-anchor-id="hazard-plots">Hazard Plots</h4>
@@ -243,18 +195,105 @@ was conducted, and any other details you can provide. If you collected your own 
 <p><img src="images/loglogistic_hazard_squares.png" class="img-fluid"></p>
 <p>For all time t, the potential to complete the puzzle with 19 playable squares is notably higher than the potential to complete the puzzle for other size puzzles (21, 22, 40 squares).</p>
 </section>
+<section id="loglogistic-summary-data" class="level4">
+<h4 class="anchored" data-anchor-id="loglogistic-summary-data">Loglogistic Summary Data</h4>
+<section id="overall" class="level5">
+<h5 class="anchored" data-anchor-id="overall">Overall</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Mean (s.)</th>
+<th>Median (s.)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>201.666</td>
+<td>199</td>
+</tr>
+</tbody>
+</table>
+<p>The estimated mean survival time for mini puzzle completion is 201.67 seconds. The estimated time at which 50% of the students have already completed the mini puzzle and 505 have not is 199 seconds.</p>
+</section>
+<section id="gender" class="level5">
+<h5 class="anchored" data-anchor-id="gender">Gender</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Mean (s.)</th>
+<th>Median (s.)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Female</td>
+<td>202.792</td>
+<td>185</td>
+</tr>
+<tr class="even">
+<td>Male</td>
+<td>200.313</td>
+<td>229</td>
+</tr>
+<tr class="odd">
+<td>Non-Binary/Other</td>
+<td>183.5</td>
+<td>120</td>
+</tr>
+</tbody>
+</table>
+<p>Female students had an estimated mean survival time of 202.792 which is slightly higher than males and a median survival time of 185 seconds. Although male students had a mean survival time of 200.313 seconds, their median survival time was 229 seconds which is larger than that for females. Non-binary had the smallest estimated mean and median completion times.</p>
+</section>
+<section id="number-of-squares" class="level5">
+<h5 class="anchored" data-anchor-id="number-of-squares">Number of Squares</h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Mean (s.)</th>
+<th>Median (s.)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>19</td>
+<td>194.958</td>
+<td>159</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td>226.727</td>
+<td><code>-</code></td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td>181.852</td>
+<td>172</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td>235.375</td>
+<td>288</td>
+</tr>
+</tbody>
+</table>
+<p>The 22-squares puzzle had the lowest estimated mean of 181.852 seconds and median of 172 seconds, meaning it was generally completed on the faster side.. The 19-squares puzzle had a slightly higher mean of 194.958 seconds and median of 159 second survival time, indicating it was completed slightly slower at the median level than the 22-squares puzzle. The 21-squares puzzle had a mean of 226.727 seconds, but no median could be determined, this means that 50% of participants did not complete the puzzle before the study ended at 300 seconds. The 40-squares puzzle took the longest to complete, with a mean of 235.375 seconds and a median of 288 seconds, reinforcing the possible trend that puzzles with more squares may generally require more time to finish.</p>
+</section>
+</section>
 </section>
 <section id="non-parametric-survival-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="non-parametric-survival-analysis">Non-Parametric Survival Analysis</h3>
 <!-- Use non-parametric methods to describe and compare survival experiences of the different groups in your data set. Examine and comment on the survival experience of all individuals in your data set, as well as the survival experiences of different groups of individuals. Use graphical displays such as Kaplan-Meier curves, and/or estimated hazard curves, and perform and report results of the log-rank test. In addition, compute various descriptive statistics of interest. Finally, compare some of your findings using the non-parametric approaches to your findings using the parametric approaches. -->
+<p>Although the loglogistic distribution fit our data the best, since the actual distribution of the data is unknown, we will proceed with a non-parametric analysis.</p>
 <section id="survival-plots-1" class="level4">
 <h4 class="anchored" data-anchor-id="survival-plots-1">Survival Plots</h4>
 <p><img src="images/nonparametric_survival.png" class="img-fluid"></p>
-<p>We estimate about 35% of students do not complete the puzzle by the end of the study. The estimated probability of not completing the puzzle beyond time t, in seconds, decreases steadily for all time.</p>
+<p>We estimate about 35% of students do not complete the puzzle by the end of the study. Given the puzzle has not been completed by time t in seconds, the estimated probability of not completing the puzzle beyond t decreases steadily for all time.</p>
 <p><img src="images/nonparametric_survival_gender.png" class="img-fluid"></p>
-<p>The estimated probability of not completing the puzzle by the end of the study appears to be similar across genders for all time. However, it appears that the probability of not completing the puzzle for female students is higher for most times prior to 175 seconds, then drops below male and non-binary students after 175 seconds.</p>
+<p>The estimated probability of not completing the puzzle by the end of the study appears to be similar across genders for all time. However, it appears that the probability of not completing the puzzle beyond t is higher for female students at most times prior to 175 seconds, then falls below male and non-binary students after 175 seconds, given they have not completed the puzzle by t.</p>
 <p><img src="images/nonparametric_survival_squares.png" class="img-fluid"></p>
-<p>The estimated probability that students do not solve puzzles with 22 playable squares beyond time t is lowest for most times, in seconds, with the exception of 175 to 200 seconds and briefly around 60 seconds. For most times, the estimated probability a student does not solve puzzles with 40 playable squares is highest, especially compared to puzzles with 22 squares.</p>
+<p>Given students have not completed puzzles with 22 squares by time t, the estimated probability that students do not solve 22 square puzzles beyond t is lowest for most of the study duration, with the exception of 175 to 200 seconds and briefly around 60 seconds. For most times, the estimated probability a student does not solve puzzles with 40 playable squares is highest, especially compared to puzzles with 22 squares.</p>
 </section>
 <section id="hazard-plots-1" class="level4">
 <h4 class="anchored" data-anchor-id="hazard-plots-1">Hazard Plots</h4>
@@ -267,48 +306,150 @@ was conducted, and any other details you can provide. If you collected your own 
 </section>
 <section id="log-rank-test" class="level4">
 <h4 class="anchored" data-anchor-id="log-rank-test">Log-Rank Test</h4>
-<section id="gender" class="level5">
-<h5 class="anchored" data-anchor-id="gender">Gender</h5>
-<p><img src="images/logrank_gender.png" class="img-fluid"></p>
+<section id="gender-1" class="level5">
+<h5 class="anchored" data-anchor-id="gender-1">Gender</h5>
+<p><img src="images/logrank_gender.png" class="img-fluid" style="width:30.0%"></p>
 <p>Since the p-value 0.883 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across male, female, and non-binary students for some time, t. This indicates a failure to reject the null hypothesis of the log-rank test.</p>
 </section>
 <section id="squares" class="level5">
 <h5 class="anchored" data-anchor-id="squares">Squares</h5>
-<p><img src="images/logrank_squares.png" class="img-fluid"></p>
+<p><img src="images/logrank_squares.png" class="img-fluid" style="width:30.0%"></p>
 <p>Similarly, since the p-value 0.482 is larger than any reasonable level of significance, we have insufficient evidence to conclude that the probability of puzzle incompletion differs across puzzles with 19, 21, 22, or 40 playable squares. This indicates a failure to reject the null hypothesis of the log-rank test.</p>
 </section>
+</section>
+<section id="section-name-also-is-this-the-right-location" class="level4">
+<h4 class="anchored" data-anchor-id="section-name-also-is-this-the-right-location"><strong>SECTION NAME (also is this the right location?)</strong></h4>
+<p>Comparing the nonparametric and parametric survival analyses, we observe that both approaches lead to the same general conclusions, despite differences in specific values. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that timeframe. However, both methods support the conclusion that the 21-squares puzzle was more time consuming, with many participants failing to complete it within the study time. The 19- and 22-squares puzzles generally took less time and the 40-squares puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots.</p>
 </section>
 </section>
 <section id="regression-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="regression-analysis">Regression Analysis</h3>
 <!-- Develop a Cox regression model to investigate the associations of the predictors (explanatory variables) with the hazard rate. You need only present your final model, including, but not limited to, parameter estimates, standard errors, and p-values. Discuss whether model assumptions have been met and whether you removed any influential or outlying cases. Be sure to present the residual diagnostic plots to support your discussion. Then for some key values of the predictors, present estimated hazard ratios and confidence intervals for the corresponding true hazard ratio. Provide interpretations of the hazard ratios -->
+<section id="model-selection" class="level4">
+<h4 class="anchored" data-anchor-id="model-selection">Model Selection</h4>
+<p>We have developed many Cox regression models over the course of our analysis. There was insignificant evidence to conclude that at least one Beta value is not equal to 0 for Gender. Similarly, there was insignificant evidence for Squares, Reaction Time or Day, or for any combination of variables, both as main effects and interactions.</p>
+<p>Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+coxph(formula = Surv(time, censor) ~ squares, data = mini_times)
+
+  n= 51, number of events= 31 
+
+            coef exp(coef) se(coef)      z Pr(&gt;|z|)
+squares -0.01770   0.98246  0.03116 -0.568     0.57
+
+        exp(coef) exp(-coef) lower .95 upper .95
+squares    0.9825      1.018    0.9243     1.044
+
+Concordance= 0.468  (se = 0.046 )
+Likelihood ratio test= 0.35  on 1 df,   p=0.6
+Wald test            = 0.32  on 1 df,   p=0.6
+Score (logrank) test = 0.33  on 1 df,   p=0.6</code></pre>
+</div>
+</div>
+<p>For the purposes of this project we will use this model, however, we would not use this for professional statistical analysis.</p>
+</section>
+<section id="model-assumptions" class="level4">
+<h4 class="anchored" data-anchor-id="model-assumptions">Model Assumptions</h4>
+<section id="martingale-residuals" class="level5">
+<h5 class="anchored" data-anchor-id="martingale-residuals">Martingale Residuals</h5>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_report_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The LOWESS is approximately horizontal, meaning the relationship between the predictor squares and log-hazard is approximately linear</p>
+</section>
+<section id="schoenfeld-residuals" class="level5">
+<h5 class="anchored" data-anchor-id="schoenfeld-residuals">Schoenfeld Residuals</h5>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="project_report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The LOWESS fit is approximately horizontal, meaning we do not expect the proportional hazards assumption to have been violated. However, we will investigate this further with a formal test.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>         chisq df    p
+squares 0.0262  1 0.87
+GLOBAL  0.0262  1 0.87</code></pre>
+</div>
+</div>
+<p>Testing Proportional Hazards with <code>cox.zph()</code> returns a p-value of over .05. This indicates that our P.H. is not violated.</p>
+</section>
+</section>
+<section id="interpretations" class="level4">
+<h4 class="anchored" data-anchor-id="interpretations">Interpretations</h4>
+<p>The estimated hazard of completing the mini crossword for each addition square present within the puzzle is 0.982</p>
+<p>We are 95% confident that the true hazard of completing a mini crossword for each one-square increase in puzzle size is 7.57% lower and 4.4% higher.</p>
+<section id="hazard-between-22-squares-and-19-squares" class="level5">
+<h5 class="anchored" data-anchor-id="hazard-between-22-squares-and-19-squares">Hazard Between 22 Squares and 19 Squares:</h5>
+<p>The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than compared to the hazard of completing the mini crossword with 19 squares.</p>
+<p>We are 95% confident that the true hazard of completing a mini crossword with 22 squares is between 21.03% lower and 13% higher when compared to the hazard of completing the mini crossword with 19 squares.</p>
+</section>
+<section id="hazard-between-40-squares-and-19-squares" class="level5">
+<h5 class="anchored" data-anchor-id="hazard-between-40-squares-and-19-squares">Hazard Between 40 Squares and 19 Squares:</h5>
+<p>The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than compared to the hazard of completing the mini crossword with 19 squares.</p>
+<p>We are 95% confident that the true hazard of completing a mini crossword with 40 squares is between 80.56% lower and 147% higher when compared to the hazard of completing the mini crossword with 19 squares.</p>
+</section>
+</section>
 </section>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <!-- Summarize and discuss any insightful discoveries about the time-to-event data and your most important findings. -->
+<p>This study explored relationships between completion time of the NYT mini crossword and factors including gender, puzzle size, and reaction time. We should note that the true distribution of mini crossword completion times is unknown and our Cox regression models found the auxiliary variables insignificant predictors of completion time. Thus, in practice, non-parametric analysis with Kaplan-Meyer estimation is ideal for understanding mini crossword completion times. For the purposes of this project, we still conducted all three forms of analysis.</p>
+<p>Parametric models (loglogistic) suggested a difference in mini completion times for male students as compared to female and non-binary students. The loglogistic model also identified 40 square puzzles as leading to highest probabilities of puzzle incompletion for all time.</p>
+<p>The Kaplan-Meier analysis revealed similar relationships between completion time and auxiliary variables. We observed a notable amount of intersection between the lines for each level which likely led to the insignificance of our non-parametric models (log-rank, p &gt; 0.05).</p>
+<p>Finally, our Cox regression models indicated that gender, puzzle size, and reaction time were insignificant predictors of puzzle completion time. We ran a stepwise variable selection function and found that a reduced model with only puzzle size (squares) returned the lowest AIC. Hence, we used this model to conduct further analyses that compared the hazard rates and survival probabilities between puzzles with various sizes, generally indicating that larger sized puzzles have lower hazard of completion, although our findings were not significant at the .05 level.</p>
+<p>While these findings do not have immediate practical applications, they challenge intuitive assumptions about puzzle completion times across groups. Future research could explore the high variability in completion times among individuals, possibly influenced by skill level or frequency of play. A larger sample size or tracking individuals over multiple days could provide more insight into these factors.</p>
 </section>
 <section id="appendix" class="level1">
 <h1>Appendix</h1>
 <!-- Include all R code used to conduct your analyses in the Appendix at the end of the report. -->
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p><strong>ADD DATA TABLE</strong></p>
-</section>
 <section id="parametric-and-non-parametric-analyses" class="level3">
 <h3 class="anchored" data-anchor-id="parametric-and-non-parametric-analyses">Parametric and Non-Parametric Analyses</h3>
-<section id="summary-tables" class="level5">
-<h5 class="anchored" data-anchor-id="summary-tables">Summary Tables</h5>
-<p><strong>ADD TABLE CODE</strong></p>
-</section>
-<section id="graphs-and-tests" class="level5">
-<h5 class="anchored" data-anchor-id="graphs-and-tests">Graphs and Tests</h5>
+<p><strong>ADD QUANTILE PLOT FOR LOGLOGISTIC</strong></p>
 <p>The graphs and tests for parametric and non-parametric analyses were conducted in Minitab.</p>
-</section>
 </section>
 <section id="regression-analysis-1" class="level3">
 <h3 class="anchored" data-anchor-id="regression-analysis-1">Regression Analysis</h3>
-<p><strong>ADD REGRESSION CODE</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model_squares <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="at">formula =</span> <span class="fu">Surv</span>(time, censor) <span class="sc">~</span> squares, <span class="at">data =</span> mini_times)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_squares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mart <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model_squares, <span class="at">type =</span> <span class="st">"martingale"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.numeric</span>(mini_times<span class="sc">$</span>squares), mart, <span class="at">type =</span> <span class="st">"p"</span>, <span class="at">xlab =</span> <span class="st">"Squares"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Martingale Residuals"</span>, <span class="at">main =</span> <span class="st">"Predictor: Squares"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>smooth.sres <span class="ot">&lt;-</span> <span class="fu">lowess</span>(mini_times<span class="sc">$</span>squares, mart)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(smooth.sres<span class="sc">$</span>x, smooth.sres<span class="sc">$</span>y, <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>schoen <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model_squares, <span class="at">type =</span> <span class="st">"schoenfeld"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>comp.times <span class="ot">&lt;-</span> <span class="fu">sort</span>(mini_times[mini_times<span class="sc">$</span>censor<span class="sc">!=</span> <span class="dv">0</span>,]<span class="sc">$</span>time)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(comp.times, schoen, <span class="at">xlab=</span><span class="st">"Time"</span>, <span class="at">ylab =</span> <span class="st">"Schoenfeld Residuals"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Predictor: Squares"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>smooth.sres <span class="ot">&lt;-</span> <span class="fu">lowess</span>(comp.times, schoen)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(smooth.sres<span class="sc">$</span>x, smooth.sres<span class="sc">$</span>y, <span class="at">lty =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cox.zph</span>(model_squares, <span class="at">transform =</span> <span class="st">"log"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>The data set, along with all of the code, can also be found at: <a href="https://github.com/AleaSeifert/stat417.git">github.com/AleaSeifert/stat417.git</a></p>
 </section>
 </section>
 
