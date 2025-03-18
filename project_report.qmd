@@ -16,6 +16,7 @@ library(knitr)
 
 source("clean_mini_times.R")
 ```
+
 {{< pagebreak >}}
 
 # Introduction
@@ -35,24 +36,34 @@ During each session, students attempted to solve the Mini. If they successfully 
 We also collected each participant’s reaction time using the Human Benchmark reaction time test. This was to see if there is any association between reaction time and Mini performance.
 
 ### Variables
+
 Our final data set includes the Mini completion time, whether the time was censored or not, the number of squares to be filled in, the participant’s self-identified gender, and the participant’s reaction time.
 
-* **time** (quantitative)
-    + Starts when the puzzle is opened, when the Mini clock begins counting
-    + Measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)
-    + Censored at 300 seconds
-* **censor** (indicator)
-    + 0: censored, 1: complete
-* **gender** (categorical)
-    + Participant self-identified (Female, Male, Non-Binary/Other)
-* **reaction_time** (quantitative)
-    + Measured in milliseconds, as given by the Human Benchmark reaction time test
-* **squares** (quantitative)
-    + The number of squares to be filled in
-    + For example, the number of squares in the following puzzle would be recorded as 22:
-    
+-   **time** (quantitative)
+
+    -   Starts when the puzzle is opened, when the Mini clock begins counting
+    -   Measured in seconds, converted from the Mini clock time (which is given in minutes and seconds)
+    -   Censored at 300 seconds
+
+-   **censor** (indicator)
+
+    -   0: censored, 1: complete
+
+-   **gender** (categorical)
+
+    -   Participant self-identified (Female, Male, Non-Binary/Other)
+
+-   **reaction_time** (quantitative)
+
+    -   Measured in milliseconds, as given by the Human Benchmark reaction time test
+
+-   **squares** (quantitative)
+
+    -   The number of squares to be filled in
+    -   For example, the number of squares in the following puzzle would be recorded as 22:
+
     ![](images/blank_mini.png){width="50%"}
-    
+
 {{< pagebreak >}}
 
 # Main Report
@@ -71,7 +82,7 @@ The probability that a student has not completed the puzzle after time t, given 
 
 ![](images/loglogistic_survival_gender.png)
 
-When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. However, it appears that the probability that a male students do not complete the puzzle after time t, given they have not completed it by t, is greater than the corresponding probability for female and non-binary students, across all time.
+When we compare completion times based on the gender of the student, we observe similar survival curves for female and non-binary students. However, it appears that the probability that male students do not complete the puzzle after time t, given they have not completed it by t, is greater than the corresponding probability for female and non-binary students, across all time.
 
 ![](images/loglogistic_survival_squares.png)
 
@@ -111,18 +122,18 @@ The estimated mean survival time for mini puzzle completion is 201.67 seconds. T
 | Male             | 200.313   | 229         |
 | Non-Binary/Other | 183.5     | 120         |
 
-Female students had a slightly higher mean survival time (202.79 seconds) than males (200.31 seconds), but their median survival time was lower (185 vs. 229 seconds). Non-binary students had the shortest mean and median completion times.
+Female students had a slightly higher mean survival time (202.79 seconds) than males (200.31 seconds), but their median survival time was lower (185 vs. 229 seconds). Non-binary students had the shortest mean and median completion times (183.50 seconds, 120 seconds).
 
 ##### Number of Squares
 
-|                   | Mean (s.) | Median (s.) |
-|-------------------|-----------|-------------|
-| 19                | 194.958   | 159         |
-| 21                | 226.727   | `-`         |
-| 22                | 181.852   | 172         |
-| 40                | 235.375   | 288         |
+|     | Mean (s.) | Median (s.) |
+|-----|-----------|-------------|
+| 19  | 194.958   | 159         |
+| 21  | 226.727   | `-`         |
+| 22  | 181.852   | 172         |
+| 40  | 235.375   | 288         |
 
-The 22-square puzzle had the shortest estimated mean completion time of 181.852 seconds and a median of 172 seconds, indicating it was generally solved more quickly. The 19-square puzzle had a slightly higher mean of 194.958 seconds and shortest median survival time of 159 seconds, suggesting it was completed slightly faster at the median level but took longer on average than the 22-square puzzle. The 21-square puzzle had a mean completion time of 226.727 seconds; however, no median could be determined, as 50% of participants did not finish the puzzle within the 300-second study limit. The 40-square puzzle took the longest to complete, with a mean of 235.375 seconds and a median of 288 seconds, reinforcing our hypothesis that puzzles with more squares usually require more time to finish.
+The 22-square puzzle had the shortest estimated mean completion time of 181.85 seconds and a median of 172 seconds, indicating it was generally solved more quickly. The 19-square puzzle had a slightly higher mean of 194.96 seconds and shortest median survival time of 159 seconds. The 21-square puzzle had a mean completion time of 226.73 seconds; however, no median could be determined, as 50% of participants did not finish the puzzle within the 300-second study limit. The 40-square puzzle took the longest to complete, with a mean of 235.38 seconds and a median of 288 seconds, reinforcing our hypothesis that puzzles with more squares usually require more time to finish.
 
 {{< pagebreak >}}
 
@@ -160,7 +171,7 @@ The estimated risk of completing the puzzle is lowest for female students across
 
 ![](images/nonparametric_hazard_squares.png)
 
-Over all time, the estimated potential to complete puzzles with 19 playable squares becomes notably larger than that of the larger sized puzzles (21, 22, and 40 squares). After 150 seconds, we observe the estimated risk of completion for 21 and 22 square puzzles increase slightly, but 21 and 19 square puzzles increase more rapidly.
+For most of the study, the estimated potential to complete puzzles with 19 playable squares is notably larger than that of the larger sized puzzles (21, 22, and 40 squares). After 150 seconds, we observe the estimated risk of completion for 21 and 22 square puzzles increase slightly, but 40 and 19 square puzzles increase more rapidly.
 
 #### Log-Rank Test
 
@@ -178,7 +189,7 @@ Similarly, since the p-value 0.482 is larger than any reasonable level of signif
 
 ##### Comparing Parametric and Non-Parametric Survival Analyses
 
-We found that both approaches lead to the same general conclusions, when assessing mini completion times. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that time frame. Both methods support the conclusion that the 21-square puzzle was more time consuming, with many participants failing to complete it within five minutes. The 19- and 22-square puzzles generally took less time and the 40-square puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots.
+We found that both approaches lead to the same general conclusions when assessing mini completion times. While the nonparametric survival times were generally lower, they also did not include values beyond 300 seconds, as the study was limited to that time frame. Both methods provide some indication that the 21-square puzzle was more time consuming, with many participants failing to complete it within five minutes. The 19- and 22-square puzzles generally took less time and the 40-square puzzle was the most time consuming, with the highest overall mean and median completion times for both nonparametric and parametric survival analyses. Additionally, both methods agree that females and non-binary students tended to complete the puzzle faster than males, which aligns with trends observed in the survival and hazard plots, despite insignificant inferential tests.
 
 {{< pagebreak >}}
 
@@ -188,9 +199,9 @@ We found that both approaches lead to the same general conclusions, when assessi
 
 #### Model Selection
 
-Over the course of our analysis, we developed many Cox regression models. Through these analyses, we found insignificant evidence to conclude that one or more genders have are significantly different Mini completion times. Similarly, there was insignificant evidence for squares, reaction time or day, any combination of variables (both as main effects and interactions), to conclude that different values of these variables have significantly different Mini completion times. 
+Over the course of our analysis, we developed many Cox regression models. Through these analyses, we found insignificant evidence to conclude that one or more genders have significantly different Mini completion times. Similarly, there was insignificant evidence to conclude that different values of playable squares, reaction time, or any combination of these variables (both as main effects and interactions), have significantly different Mini completion times.
 
-Our final model uses Squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables, as determined with a step-wise model selection procedure. 
+Our final model uses squares as the only predictor, as this model had the lowest AIC of any models with any explanatory variables, as determined with a step-wise model selection procedure.
 
 ```{r}
 #| echo: false
@@ -205,7 +216,7 @@ For the purposes of this project we will use this model for further interpretati
 
 #### Model Assumptions
 
-##### Martingale Residuals 
+##### Martingale Residuals
 
 ```{r}
 #| echo: false
@@ -217,7 +228,7 @@ smooth.sres <- lowess(mini_times$squares, mart)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 ```
 
-The LOWESS is approximately horizontal, meaning the relationship between the predictor squares and log-hazard is approximately linear
+The LOWESS is approximately horizontal, meaning the relationship between the predictor squares and log-hazard is approximately linear.
 
 {{< pagebreak >}}
 
@@ -235,7 +246,7 @@ smooth.sres <- lowess(comp.times, schoen)
 lines(smooth.sres$x, smooth.sres$y, lty = 1)
 ```
 
-The LOWESS fit is approximately horizontal, meaning the proportional hazards assumption will not been violated. However, we will investigate this further with a formal test.
+The LOWESS fit is approximately horizontal, meaning the proportional hazards assumption appears to not be violated. However, we will investigate this further with a formal test.
 
 ```{r}
 #| echo: false
@@ -243,7 +254,7 @@ The LOWESS fit is approximately horizontal, meaning the proportional hazards ass
 cox.zph(model_squares, transform = "log")
 ```
 
-Testing Proportional Hazards with `cox.zph()` returns a p-value larger than any reasonable value of significance. This indicates that our P.H. assumption is not violated.
+Testing Proportional Hazards with `cox.zph()` returns a p-value larger than any reasonable level of significance. This indicates that our P.H. assumption is not violated.
 
 #### Interpretations
 
@@ -251,16 +262,15 @@ The estimated hazard of completing the mini crossword for each additional square
 
 We are 95% confident that the true hazard of completing a mini crossword for each one-square increase in puzzle size is 7.57% lower and 4.4% higher.
 
-
 ##### Hazard Between 22 Squares and 19 Squares:
 
-The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than the hazard of completing the mini crossword with 19 squares. 
+The estimated hazard of completing the mini crossword with 22 squares is 5.18% lower than the hazard of completing the mini crossword with 19 squares.
 
 We are 95% confident that the true hazard of completing a mini crossword with 22 squares is between 21.03% lower and 13% higher when compared to the hazard of completing the mini crossword with 19 squares.
 
 ##### Hazard Between 40 Squares and 19 Squares:
 
-The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than the hazard of completing the mini crossword with 19 squares. 
+The estimated hazard of completing the mini crossword with 40 squares is 31.04% lower than the hazard of completing the mini crossword with 19 squares.
 
 We are 95% confident that the true hazard of completing a mini crossword with 40 squares is between 80.56% lower and 147% higher when compared to the hazard of completing the mini crossword with 19 squares.
 
@@ -269,13 +279,14 @@ These confidence intervals all capture 0%. This is consistent with the insignifi
 {{< pagebreak >}}
 
 # Conclusion
+
 <!-- Summarize and discuss any insightful discoveries about the time-to-event data and your most important findings. -->
 
 This study explored relationships between completion time of the NYT mini crossword and factors including gender, puzzle size, and reaction time. We should note that the true distribution of mini crossword completion times is unknown and our Cox regression models found the auxiliary variables insignificant predictors of completion time. Thus, in practice, non-parametric analysis with Kaplan-Meyer estimation is ideal for understanding mini crossword completion times. For the purposes of this project, we still conducted all three forms of analysis.
 
 Parametric models (loglogistic) suggested a difference in mini completion times for male students as compared to female and non-binary students. The loglogistic model also identified 40 square puzzles as leading to the highest probabilities of puzzle incompletion for all time.
 
-The Kaplan-Meier analysis revealed similar relationships between completion time and auxiliary variables. We observed a frequent intersection between the lines for each level which likely led to the insignificance of our non-parametric models (log-rank, p > 0.05).
+The Kaplan-Meier analysis revealed similar relationships between completion time and auxiliary variables. We observed a frequent intersection between the lines for each level which likely led to the insignificance of our non-parametric models (log-rank, p \> 0.05).
 
 Finally, our Cox regression models indicated that gender, puzzle size, and reaction time were insignificant predictors of puzzle completion time. We ran a stepwise variable selection function and found that a reduced model with only puzzle size (squares) returned the lowest AIC. Hence, we used this model to conduct further analyses that compared the hazard rates and survival probabilities between puzzles with various sizes, generally indicating that larger sized puzzles have lower hazard of completion, although our findings were not significant at the .05 level.
 
@@ -284,6 +295,7 @@ While these findings do not have immediate practical applications, they challeng
 {{< pagebreak >}}
 
 # Appendix
+
 <!-- Include all R code used to conduct your analyses in the Appendix at the end of the report. -->
 
 ### Parametric and Non-Parametric Analyses
